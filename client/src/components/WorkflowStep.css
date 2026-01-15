@@ -1,0 +1,179 @@
+.workflow-step {
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #6c757d;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.workflow-step:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.workflow-step.pending {
+  border-left-color: #6c757d;
+}
+
+.workflow-step.in_progress {
+  border-left-color: #ffc107;
+}
+
+.workflow-step.completed {
+  border-left-color: #28a745;
+}
+
+.workflow-step.blocked {
+  border-left-color: #dc3545;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.step-header:hover {
+  background-color: #e9ecef;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.step-info {
+  flex: 1;
+}
+
+.step-info h3 {
+  margin: 0 0 0.25rem 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.completed-date {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.step-status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.expand-icon {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.step-content {
+  padding: 1.5rem;
+  background: white;
+  border-top: 1px solid #e0e0e0;
+}
+
+.status-controls {
+  margin-bottom: 1.5rem;
+}
+
+.status-controls label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.status-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.status-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.status-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.status-btn.active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.notes-section {
+  margin-top: 1.5rem;
+}
+
+.notes-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.notes-display {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.notes-display p {
+  margin: 0 0 0.75rem 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.notes-editor textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  margin-bottom: 0.75rem;
+}
+
+.notes-editor textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.notes-actions {
+  display: flex;
+  gap: 0.5rem;
+}
