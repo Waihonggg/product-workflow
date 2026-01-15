@@ -192,36 +192,41 @@ app.put('/api/products/:productId/steps/:stepId', (req, res) => {
   }
 });
 
-// Upload attachment
-app.post('/api/products/:productId/attachments', upload.single('file'), (req, res) => {
+// Upload attachment(s) - supports multiple files
+app.post('/api/products/:productId/attachments', upload.array('files', 10), (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({ error: 'No file uploaded' });
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ error: 'No files uploaded' });
     }
 
-    const id = uuidv4();
     const { stepId } = req.body;
     const now = new Date().toISOString();
+    const uploadedAttachments = [];
 
-    const attachment = db.createAttachment({
-      id,
-      product_id: req.params.productId,
-      step_id: stepId || null,
-      filename: req.file.filename,
-      original_filename: req.file.originalname,
-      file_path: req.file.path,
-      file_size: req.file.size,
-      mime_type: req.file.mimetype,
-      uploaded_at: now
+    req.files.forEach(file => {
+      const id = uuidv4();
+      const attachment = db.createAttachment({
+        id,
+        product_id: req.params.productId,
+        step_id: stepId || null,
+        filename: file.filename,
+        original_filename: file.originalname,
+        file_path: file.path,
+        file_size: file.size,
+        mime_type: file.mimetype,
+        uploaded_at: now
+      });
+
+      uploadedAttachments.push({
+        id,
+        filename: file.filename,
+        original_filename: file.originalname,
+        file_size: file.size,
+        mime_type: file.mimetype
+      });
     });
 
-    res.status(201).json({
-      id,
-      filename: req.file.filename,
-      original_filename: req.file.originalname,
-      file_size: req.file.size,
-      mime_type: req.file.mimetype
-    });
+    res.status(201).json(uploadedAttachments);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

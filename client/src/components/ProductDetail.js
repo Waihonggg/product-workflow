@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import api from '../api';
 import './ProductDetail.css';
 import WorkflowStep from './WorkflowStep';
-import AttachmentManager from './AttachmentManager';
 
 function ProductDetail({ product, onBack, onUpdate }) {
   const [productData, setProductData] = useState(product);
@@ -34,6 +33,16 @@ function ProductDetail({ product, onBack, onUpdate }) {
     } catch (error) {
       console.error('Error updating step:', error);
       alert('Failed to update step');
+    }
+  };
+
+  const handleAttachmentsUpdate = async (productId) => {
+    try {
+      const response = await api.get(`/api/products/${productId}`);
+      setProductData(response.data);
+      onUpdate(productId);
+    } catch (error) {
+      console.error('Error fetching attachments:', error);
     }
   };
 
@@ -191,19 +200,11 @@ function ProductDetail({ product, onBack, onUpdate }) {
                 stepNumber={index + 1}
                 onUpdate={handleStepUpdate}
                 productId={product.id}
+                attachments={productData.attachments || []}
+                onAttachmentsUpdate={handleAttachmentsUpdate}
               />
             ))}
           </div>
-        </div>
-
-        <div className="attachments-section">
-          <h2>Attachments</h2>
-          <AttachmentManager
-            productId={product.id}
-            steps={productData.steps || []}
-            attachments={productData.attachments || []}
-            onUpdate={onUpdate}
-          />
         </div>
       </div>
     </div>
